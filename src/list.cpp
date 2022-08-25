@@ -67,6 +67,11 @@ void List::delete_item()
         {
             cout << i << ":" << list[i] << "\n";
         }
+        int choiceNum;
+        cin >> choiceNum;
+        // list.begin returns where the list exists
+        // choiceNum indicates what element of list to delete
+        list.erase(list.begin()+choiceNum);
     }
     else
     {
