@@ -3,3 +3,6 @@ list.d
 obj/main.o
 obj/list.o
 SimpleList
+database.d
+obj/database.o
+db/lists.sl

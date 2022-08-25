@@ -9,7 +9,8 @@ void List::print_menu()
     cout << " 1 - Print List \n";
     cout << " 2 - Add to List\n";
     cout << " 3 - Delete from List\n";
-    cout << " 4 - Quit\n";
+    cout << " 4 - Save List\n";
+    cout << " 5 - Quit\n";
     cout << " Enter your choice and press enter: ";
 
     // cin takes user input
@@ -17,9 +18,11 @@ void List::print_menu()
 
     // equivalence is ==
     // assignment is =
-    if (choice == 4)
+    if (choice == 5)
     {
-        exit(0);
+        return;
+    } else if (choice == 4) {
+        save_list();
     }
     else if (choice == 3)
     {
@@ -47,7 +50,7 @@ void List::add_item()
 
     string item;
     cin >> item;
-    // places item in last index of vector 
+    // places item in last index of vector
     list.push_back(item);
 
     cout << "Success! Item added to list!\n\n\n";
@@ -71,7 +74,7 @@ void List::delete_item()
         cin >> choiceNum;
         // list.begin returns where the list exists
         // choiceNum indicates what element of list to delete
-        list.erase(list.begin()+choiceNum);
+        list.erase(list.begin() + choiceNum);
     }
     else
     {
@@ -92,19 +95,55 @@ void List::print_list()
         {
             cout << "- " << list[list_index] << "\n";
         }
-
     }
     else
     {
         cout << "No items to list.\n";
     }
 
-     cout << "M - Menu\n";
-        char choice;
-        cin >> choice;
+    cout << "M - Menu\n";
+    char choice;
+    cin >> choice;
 
-        if (choice == 'M' || choice == 'm')
+    if (choice == 'M' || choice == 'm')
+    {
+        print_menu();
+    }
+}
+
+bool List::find_userList()
+{
+
+    bool userFound = false;
+    cout << "\n\n\n";
+    cout << "*** Welcome " << name << " ***\n";
+
+    for (int user_index = 0; user_index < (int)mainList.size(); user_index++)
+    {
+        cout << mainList[user_index][0] << "\n";
+        if (mainList[user_index][0] == name)
         {
-            print_menu();
+            cout << "User has been found: " << mainList[user_index][0] << "\n";
+            list = mainList[user_index];
+            currentUserIndex = user_index;
+            userFound = true;
+            break;
         }
+    }
+
+    if (userFound == false) {
+        list.push_back(name);
+        mainList.push_back(list);
+        currentUserIndex = (int)mainList.size()-1;
+    }
+
+    return userFound;
+}
+
+void List::save_list()
+{
+    cout << "Saving the list...\n";
+    mainList[currentUserIndex] = list;
+    print_menu();
+    
 }
